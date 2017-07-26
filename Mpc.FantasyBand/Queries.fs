@@ -1,7 +1,12 @@
 ﻿module Queries
 
-open Dal
-open Dtos
+open System
+open RepositoryTypes
+
+type BandListItem = {
+  Id: Guid;
+  Name: string
+}
 
 let getBands (ctx: DbContext) =
-  Dal.getBands ctx |> Seq.map (fun l -> l.MapTo<BandListItem>())
+  Repository.getBands ctx |> Seq.map (fun l -> l.MapTo<BandListItem>())

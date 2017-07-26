@@ -7,5 +7,6 @@ open Suave.Operators
 let app =
   choose 
     [
-    path "/bands" >=> GET >=> WebParts.bandList
+    path "/band" >=> GET >=> WebParts.bandList
+    path "/band" >=> POST >=> WebParts.bandCreate
     ]

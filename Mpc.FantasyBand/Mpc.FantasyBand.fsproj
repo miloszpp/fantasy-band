@@ -55,9 +55,13 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Dal.fs" />
-    <Compile Include="Dtos.fs" />
+    <Compile Include="CommonLibrary.fs" />
+    <Compile Include="RepositoryTypes.fs" />
+    <Compile Include="CommandTypes.fs" />
+    <Compile Include="Repository.fs" />
     <Compile Include="Queries.fs" />
+    <Compile Include="Validation.fs" />
+    <Compile Include="Commands.fs" />
     <Compile Include="WebPartCombinators.fs" />
     <Compile Include="WebParts.fs" />
     <Compile Include="Routing.fs" />
@@ -72,6 +76,9 @@
     <Reference Include="FSharp.Data.SqlProvider">
       <HintPath>..\packages\SQLProvider.1.1.6\lib\FSharp.Data.SqlProvider.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -85,6 +92,7 @@
     <Reference Include="System.ValueTuple">
       <HintPath>..\packages\System.ValueTuple.4.4.0-preview2-25405-01\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

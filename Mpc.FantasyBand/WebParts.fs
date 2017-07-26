@@ -5,7 +5,9 @@ open Suave.Json
 open WebPartCombinators
 
 let bandList = warbler (fun _ ->
-  Dal.getContext()
+  Repository.getContext()
   |> Queries.getBands
   |> JSON
 )
+
+let bandCreate = wrapCommand Commands.createBand
