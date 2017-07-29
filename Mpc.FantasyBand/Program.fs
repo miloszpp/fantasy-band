@@ -5,10 +5,15 @@ open Suave
 open System.Threading
 open System
 
+open SpotifyIntegration
+
 [<EntryPoint>]
 let main argv = 
   let cts = new CancellationTokenSource()
   let conf = { defaultConfig with cancellationToken = cts.Token }
+
+  //let token = SpotifyIntegration.getToken()
+  //let artists = Result.bind (fun t -> SpotifyIntegration.searchArtists "Rage Against" t.AccessToken) token
 
   let listening, server = startWebServerAsync conf Routing.app
     

@@ -2,7 +2,7 @@
 
 open Suave
 open Suave.Json
-open WebPartCombinators
+open WebPartUtils
 
 let bandList = warbler (fun _ ->
   Repository.getContext()

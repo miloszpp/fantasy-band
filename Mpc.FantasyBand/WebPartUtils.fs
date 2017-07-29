@@ -1,4 +1,4 @@
-﻿module WebPartCombinators
+﻿module WebPartUtils
 
 open Suave
 open Suave.Successful
