@@ -10,4 +10,11 @@ let bandList = warbler (fun _ ->
   |> JSON
 )
 
+let bandSearch searchStr = request (fun r ->
+  Queries.searchBandsSpotify searchStr
+  |> JSON
+)
+
 let bandCreate = wrapCommand Commands.createBand
+
+let bandImport = wrapCommand Commands.importSpotifyBand

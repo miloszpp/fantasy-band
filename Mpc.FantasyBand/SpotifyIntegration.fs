@@ -18,12 +18,18 @@ type Image = {
   Url: string
 }
 
+type ArtistFollowers = {
+  Total: int
+}
+
 type Artist = {
   Id: string
   Name: string
   Popularity: int
   Images: Image list
   Href: string
+  Genres: string list
+  Followers: ArtistFollowers
 }
 
 type SearchArtistsResponseInner = {
@@ -32,6 +38,10 @@ type SearchArtistsResponseInner = {
 
 type SearchArtistsResponse = {
   Artists: SearchArtistsResponseInner
+}
+
+type GetManyArtistsResponse = {
+  Artists: Artist list
 }
 
 let private serializerSettings = lazy (
@@ -73,6 +83,36 @@ let searchArtists searchString token =
   if response.StatusCode = 200 then
     match response.Body with
     | Text text -> text |> fromJson<SearchArtistsResponse> |> Ok
+    | _ -> Error "Invalid response from Spotify"
+  else
+    Error "Could not get authentication token"
+
+let getArtist id token =
+  let headers = [
+    ("Authorization", "Bearer " + token)
+    ("Content-Type", "application/x-www-form-urlencoded")
+  ]
+  let response = Http.Request("https://api.spotify.com/v1/artists/" + id, headers = headers, query = [], httpMethod = "GET")
+  if response.StatusCode = 200 then
+    match response.Body with
+    | Text text -> text |> fromJson<Artist> |> Ok
+    | _ -> Error "Invalid response from Spotify"
+  else
+    Error "Could not get authentication token"
+
+// TODO convert exceptions to result
+// TODO extract common code
+let getManyArtists (ids: string list) token =
+  let headers = [
+    ("Authorization", "Bearer " + token)
+    ("Content-Type", "application/x-www-form-urlencoded")
+  ]
+  let idsString = ids |> List.reduce (fun acc el -> acc + "," + el)
+  let query: (string * string) list = [("ids", idsString)]
+  let response = Http.Request("https://api.spotify.com/v1/artists/", headers = headers, query = query, httpMethod = "GET")
+  if response.StatusCode = 200 then
+    match response.Body with
+    | Text text -> text |> fromJson<GetManyArtistsResponse> |> Ok
     | _ -> Error "Invalid response from Spotify"
   else
     Error "Could not get authentication token"
